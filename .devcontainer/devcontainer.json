@@ -1,0 +1,33 @@
+{
+  "name": "Chat Client Sample",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "init": true,
+  "privileged": true,
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "installOhMyZsh": false,
+      "installOhMyZshConfig": false,
+      "configureZshAsDefaultShell": true,
+      "username": "vscode"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "mhutchie.git-graph"
+      ]
+    }
+  },
+  "containerUser": "vscode",
+  "remoteUser": "vscode",
+  "postCreateCommand": "sudo chown vscode:vscode ${containerWorkspaceFolder}/node_modules",
+  "remoteEnv": {
+    "PATH": "${containerWorkspaceFolder}/node_modules/.bin:${containerEnv:PATH}"
+  },
+  "mounts": [
+    "source=${localWorkspaceFolderBasename}-node-modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+  ]
+}
